@@ -8,7 +8,7 @@ public class Memory
     [Key]
     public long Id { get; set; }
 
-    public List<string> InformationList { get; set; } = new();
+    public List<string> InformationList { get; set; }
 
     [ForeignKey("User")]
     public long UserId { get; set; }
