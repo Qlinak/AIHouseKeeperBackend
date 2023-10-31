@@ -41,9 +41,9 @@ public class UserIdentityService : IUserIdentityService, IScopedService
 
     public async Task SignUpUser(UserSignUpRequestViewModel request)
     {
-        if (await GetUserByUsername(request.UserName) != null)
+        if (await GetUserByUsername(request.Username) != null)
         {
-            throw new InvalidOperationException($"user with Username {request.UserName} already exists");
+            throw new InvalidOperationException($"user with Username {request.Username} already exists");
         }
 
         if (await GetUserByEmail(request.Email) != null)
@@ -53,7 +53,7 @@ public class UserIdentityService : IUserIdentityService, IScopedService
 
         var user = new User
         {
-            UserName = request.UserName,
+            Username = request.Username,
             PasswordHash = HashHelper.HashPassword(request.Password, _config.SecretKey),
             Email = request.Email
         };
@@ -76,7 +76,7 @@ public class UserIdentityService : IUserIdentityService, IScopedService
 
     public async Task<User?> GetUserByUsername(string username)
     {
-        return await _appDbContext.Users.FirstOrDefaultAsync(x => x.UserName == username);
+        return await _appDbContext.Users.FirstOrDefaultAsync(x => x.Username == username);
     }
 
     public async Task<User?> GetUserByEmail(string email)
@@ -88,7 +88,7 @@ public class UserIdentityService : IUserIdentityService, IScopedService
     {
         return await _appDbContext.Users.FirstOrDefaultAsync(
             x => 
-                x.UserName == vm.UserName
+                x.Username == vm.UserName
                 && x.PasswordHash == HashHelper.HashPassword(vm.Password, _config.SecretKey));
     }
 

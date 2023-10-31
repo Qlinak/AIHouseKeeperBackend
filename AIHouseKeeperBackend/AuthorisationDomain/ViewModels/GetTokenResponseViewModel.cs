@@ -15,7 +15,7 @@ public class GetTokenResponseViewModel
     public GetTokenResponseViewModel(User user, string token)
     {
         Id = user.Id;
-        UserName = user.UserName;
+        UserName = user.Username;
         TokenType = "Bearer";
         Token = token;
     }
