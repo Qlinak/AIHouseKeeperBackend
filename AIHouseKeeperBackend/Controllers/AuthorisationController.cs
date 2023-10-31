@@ -44,18 +44,31 @@ public class AuthorisationController : ControllerBase
 
         if (res == null)
         {
-            return BadRequest(ErrorHelper.FormatErrorMessage(nameof(SignIn), "username or password incorrect"));
+            return BadRequest(ErrorHelper.FormatErrorMessage(nameof(SignIn), "Username or password incorrect"));
         }
 
         return Ok(res);
     }
 
     [HttpPost("ValidateUsername")]
-    public async Task<ActionResult<ValidateUsernameResponse>> ValidateUsername(ValidateUsernameRequest request)
+    public async Task<ActionResult<ValidateUsernameResponse>> ValidateUsername([FromBody] ValidateUsernameRequest request)
     {
-        var user = await _userIdentityService.GetUserByUsername(request.username);
+        var user = await _userIdentityService.GetUserByUsername(request.Username);
         var isUnique = user == null;
         var res = new ValidateUsernameResponse
+        {
+            IsUnique = isUnique
+        };
+
+        return Ok(res);
+    }
+
+    [HttpPost("ValidateUserEmail")]
+    public async Task<ActionResult<ValidateEmailResponse>> ValidateUserEmail([FromBody] ValidateEmailRequest request)
+    {
+        var user = await _userIdentityService.GetUserByEmail(request.Email);
+        var isUnique = user == null;
+        var res = new ValidateEmailResponse
         {
             IsUnique = isUnique
         };

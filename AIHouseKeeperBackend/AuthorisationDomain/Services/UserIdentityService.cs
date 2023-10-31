@@ -16,6 +16,8 @@ public interface IUserIdentityService
 
     Task<User?> GetUserByUsername(string username);
 
+    Task<User?> GetUserByEmail(string email);
+
     Task<User?> GetUserFromRequestModelAsync(GetTokenRequestViewModel vm);
 
     Task<User?> GetUserFromUserIdAsync(long userId);
@@ -41,13 +43,19 @@ public class UserIdentityService : IUserIdentityService, IScopedService
     {
         if (await GetUserByUsername(request.UserName) != null)
         {
-            throw new InvalidOperationException($"user with username {request.UserName} already exists");
+            throw new InvalidOperationException($"user with Username {request.UserName} already exists");
+        }
+
+        if (await GetUserByEmail(request.Email) != null)
+        {
+            throw new InvalidOperationException($"user with email {request.Email} already exists");
         }
 
         var user = new User
         {
             UserName = request.UserName,
             PasswordHash = HashHelper.HashPassword(request.Password, _config.SecretKey),
+            Email = request.Email
         };
 
         await _appDbContext.Users.AddAsync(user);
@@ -69,6 +77,11 @@ public class UserIdentityService : IUserIdentityService, IScopedService
     public async Task<User?> GetUserByUsername(string username)
     {
         return await _appDbContext.Users.FirstOrDefaultAsync(x => x.UserName == username);
+    }
+
+    public async Task<User?> GetUserByEmail(string email)
+    {
+        return await _appDbContext.Users.FirstOrDefaultAsync(x => x.Email == email);
     }
 
     public async Task<User?> GetUserFromRequestModelAsync(GetTokenRequestViewModel vm)
