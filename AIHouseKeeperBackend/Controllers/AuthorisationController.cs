@@ -1,3 +1,4 @@
+using AIHouseKeeperBackend.AIDomain.ViewModels;
 using AIHouseKeeperBackend.AuthorisationDomain.Services;
 using AIHouseKeeperBackend.AuthorisationDomain.ViewModels;
 using AIHouseKeeperBackend.Helpers;
@@ -45,6 +46,19 @@ public class AuthorisationController : ControllerBase
         {
             return BadRequest(ErrorHelper.FormatErrorMessage(nameof(SignIn), "username or password incorrect"));
         }
+
+        return Ok(res);
+    }
+
+    [HttpPost("ValidateUsername")]
+    public async Task<ActionResult<ValidateUsernameResponse>> ValidateUsername(ValidateUsernameRequest request)
+    {
+        var user = await _userIdentityService.GetUserByUsername(request.username);
+        var isUnique = user == null;
+        var res = new ValidateUsernameResponse
+        {
+            IsUnique = isUnique
+        };
 
         return Ok(res);
     }
