@@ -88,7 +88,7 @@ public class UserIdentityService : IUserIdentityService, IScopedService
     {
         return await _appDbContext.Users.FirstOrDefaultAsync(
             x => 
-                x.Username == vm.UserName
+                x.Username == vm.Username
                 && x.PasswordHash == HashHelper.HashPassword(vm.Password, _config.SecretKey));
     }
 
