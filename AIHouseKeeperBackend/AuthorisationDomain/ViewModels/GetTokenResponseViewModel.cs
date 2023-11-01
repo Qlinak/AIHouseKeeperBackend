@@ -6,7 +6,7 @@ public class GetTokenResponseViewModel
 {
     public long Id { get; set; }
     
-    public string UserName { get; set; }
+    public string Username { get; set; }
 
     public string TokenType { get; set; }
 
@@ -15,7 +15,7 @@ public class GetTokenResponseViewModel
     public GetTokenResponseViewModel(User user, string token)
     {
         Id = user.Id;
-        UserName = user.Username;
+        Username = user.Username;
         TokenType = "Bearer";
         Token = token;
     }
