@@ -1,0 +1,29 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="AIHouseKeeperBackend" type="DotNetProject" factoryName=".NET Project">
+    <option name="EXE_PATH" value="$PROJECT_DIR$/AIHouseKeeperBackend/bin/Debug/net7.0/AIHouseKeeperBackend" />
+    <option name="PROGRAM_PARAMETERS" value="" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/AIHouseKeeperBackend/bin/Debug/net7.0" />
+    <option name="PASS_PARENT_ENVS" value="1" />
+    <envs>
+      <env name="ASPNETCORE_ENVIRONMENT" value="DEVELOPMENT" />
+      <env name="ASPNETCORE_URLS" value="http://localhost:8888" />
+      <env name="UST_URL" value="https://hkust.azure-api.net/openai/deployments/gpt-35-turbo/chat/completions?api-version=2023-05-15" />
+      <env name="SECRET_KEY" value="YO, THIS IS PETOPIA!! YOU ARE NOT GONNA HACKED INTO OUT SERVER!" />
+      <env name="UST_KEY" value="bf70c8ebc18f41d29e4160eb73a19a4f" />
+      <env name="DB_CONN_STR" value="Host=localhost;Database=TestDb;Username=postgres;Password=nevillelam;Port=5432;" />
+    </envs>
+    <option name="USE_EXTERNAL_CONSOLE" value="0" />
+    <option name="USE_MONO" value="0" />
+    <option name="RUNTIME_ARGUMENTS" value="" />
+    <option name="PROJECT_PATH" value="$PROJECT_DIR$/AIHouseKeeperBackend/AIHouseKeeperBackend.csproj" />
+    <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
+    <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
+    <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
+    <option name="PROJECT_KIND" value="DotNetCore" />
+    <option name="PROJECT_TFM" value="net7.0" />
+    <browser url="http://localhost:8888/swagger/index.html" start="true" />
+    <method v="2">
+      <option name="Build" />
+    </method>
+  </configuration>
+</component>
