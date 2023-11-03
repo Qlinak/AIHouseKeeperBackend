@@ -25,7 +25,11 @@ public class AiController : ControllerBase
         if (type == PromptType.Statement)
         {
             await _aiService.StoreMemoryAsync(viewModel);
-            return Ok("toast: statement stored");
+            return Ok(
+                new
+                {
+                    Message = "toast: statement stored"
+                });
         }
 
         string res;
@@ -35,7 +39,10 @@ public class AiController : ControllerBase
         }
         catch (InvalidOperationException e)
         {
-            return BadRequest("Ops, seems you didn't tell me anything yet");
+            return BadRequest(new
+            {
+                Message = "Ops, seems you didn't tell me anything yet"
+            });
         }
 
         return Ok(res);

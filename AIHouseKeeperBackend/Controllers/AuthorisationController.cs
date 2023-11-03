@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AIHouseKeeperBackend.Controllers;
 
-
 [AllowAnonymous]
 [ApiController]
 [Route("[controller]")]
@@ -44,14 +43,18 @@ public class AuthorisationController : ControllerBase
 
         if (res == null)
         {
-            return BadRequest(ErrorHelper.FormatErrorMessage(nameof(SignIn), "Username or password incorrect"));
+            return BadRequest(new
+            {
+                Message = ErrorHelper.FormatErrorMessage(nameof(SignIn), "Username or password incorrect")
+            });
         }
 
         return Ok(res);
     }
 
     [HttpPost("ValidateUsername")]
-    public async Task<ActionResult<ValidateUsernameResponse>> ValidateUsername([FromBody] ValidateUsernameRequest request)
+    public async Task<ActionResult<ValidateUsernameResponse>> ValidateUsername(
+        [FromBody] ValidateUsernameRequest request)
     {
         var user = await _userIdentityService.GetUserByUsername(request.Username);
         var isUnique = user == null;
