@@ -45,6 +45,9 @@ public class AiController : ControllerBase
             });
         }
 
-        return Ok(res);
+        return Ok(new
+        {
+            Message = res
+        });
     }
 }
