@@ -39,7 +39,7 @@ public class AiController : ControllerBase
         }
         catch (InvalidOperationException e)
         {
-            return BadRequest(new
+            return Ok(new
             {
                 Message = "Ops, seems you didn't tell me anything yet"
             });
