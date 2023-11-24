@@ -50,4 +50,11 @@ public class AiController : ControllerBase
             Message = res
         });
     }
+
+    [HttpGet("Memory")]
+    public async Task<ActionResult<List<string>>> Memory(
+        [FromQuery] long userId)
+    {
+        return Ok(await _aiService.GetMemoryList(userId));
+    }
 }

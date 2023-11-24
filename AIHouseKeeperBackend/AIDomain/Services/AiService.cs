@@ -18,6 +18,8 @@ public interface IAiService
     Task<MessageContent> GetAnswerFromPromptAsync(PromptRequestViewModel viewModel);
 
     Task StoreMemoryAsync(PromptRequestViewModel viewModel);
+
+    Task<List<string>> GetMemoryList(long userId);
 }
 
 public class AiService : IAiService, IScopedService
@@ -116,6 +118,12 @@ public class AiService : IAiService, IScopedService
         
         existingMemory.InformationList.Add(viewModel.Content);
         await _appDbContext.SaveChangesAsync();
+    }
+
+    public async Task<List<string>> GetMemoryList(long userId)
+    {
+        var res = (await _appDbContext.Memories.FirstOrDefaultAsync(x => x.UserId == userId))!.InformationList;
+        return res;
     }
 
     private async Task<Respond> GetGptRespond(Message message)
