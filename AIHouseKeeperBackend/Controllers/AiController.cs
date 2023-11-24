@@ -28,7 +28,7 @@ public class AiController : ControllerBase
             return Ok(
                 new
                 {
-                    Message = "toast: statement stored"
+                    Message = "Copy that my master."
                 });
         }
 
@@ -41,7 +41,7 @@ public class AiController : ControllerBase
         {
             return Ok(new
             {
-                Message = "Ops, seems you didn't tell me anything yet"
+                Message = "Ops, seems you didn't tell me anything yet."
             });
         }
 
