@@ -63,6 +63,13 @@ public class AiService : IAiService, IScopedService
             PromptType.Question;
     }
 
+    private string GetCurrentTimeStr()
+    {
+        return
+            $"current date time: {DateTime.Now}. You should find answer from the information having time that matches " +
+            $"my question in the information list. Here is the list of information: ";
+    }
+
     public async Task<MessageContent> GetAnswerFromPromptAsync(PromptRequestViewModel viewModel)
     {
         var memory = await _appDbContext.Memories.FirstOrDefaultAsync(x=>x.UserId == viewModel.UserId);
@@ -84,12 +91,12 @@ public class AiService : IAiService, IScopedService
                 new()
                 {
                     Role = Role.Assistant,
-                    Content = PromptBackground.Answer + memoryStr,
+                    Content = PromptBackground.Answer + GetCurrentTimeStr() + memoryStr,
                 },
                 new()
                 {
                     Role = Role.User,
-                    Content = viewModel.Content,
+                    Content = viewModel.Content ,
                 }
             }
         };
@@ -107,7 +114,7 @@ public class AiService : IAiService, IScopedService
             var newMemory = new Memory
             {
                 UserId = viewModel.UserId,
-                InformationList = new List<string>{ viewModel.Content }
+                InformationList = new List<string>{  $"At {DateTime.Now} " + viewModel.Content }
             };
 
             await _appDbContext.Memories.AddAsync(newMemory);
@@ -116,7 +123,7 @@ public class AiService : IAiService, IScopedService
             return;
         }
         
-        existingMemory.InformationList.Add(viewModel.Content);
+        existingMemory.InformationList.Add($"At {DateTime.Now} " + viewModel.Content);
         await _appDbContext.SaveChangesAsync();
     }
 
